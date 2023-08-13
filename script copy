@@ -42,34 +42,31 @@ const currentLocation = fetch("http://ip-api.com/json/")
         let forecastWeather = document.querySelector("#forecastHeader");
         forecastWeather.innerHTML = `<h5 id="todayHeader" class="mt-1 h5">5-Day Forecast:</div>`;
 
-        //create cards
+        //create card
+
+        let futureDate = document.createElement("h9");
+        futureDate.textContent = `Date:`;
+
+        let futureTemp = document.createElement("div");
+        futureTemp.textContent = `Temp:`;
+
+        let futureWind = document.createElement("div");
+        futureWind.textContent = `Wind:`;
+
+        let futureHumidity = document.createElement("div");
+        futureHumidity.textContent = `Humidity:`;
 
         //card container
         let cardContainer = document.querySelector("#forecast");
         //card element
+        let card = document.createElement("div");
+        card.classList.add("card", "col-2");
 
-        for (let i = 1; i < 6; i++) {
-          let futureDate = document.createElement("h9");
-          futureDate.textContent = `Date:`;
+        cardContainer.appendChild(card);
 
-          let futureTemp = document.createElement("div");
-          futureTemp.textContent = `Temp: ${data.list[i].main.temp} °C`;
-
-          let futureWind = document.createElement("div");
-          futureWind.textContent = `Wind: ${data.list[i].wind.speed} KPH`;
-
-          let futureHumidity = document.createElement("div");
-          futureHumidity.textContent = `Humidity: ${data.list[i].main.humidity}%`;
-
-          let card = document.createElement("div");
-          card.classList.add("card", "col-2");
-
-          cardContainer.appendChild(card);
-
-          card.appendChild(futureDate);
-          card.appendChild(futureTemp);
-          card.appendChild(futureWind);
-          card.appendChild(futureHumidity);
-        }
+        card.appendChild(futureDate);
+        card.appendChild(futureTemp);
+        card.appendChild(futureWind);
+        card.appendChild(futureHumidity);
       });
   });
