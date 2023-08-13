@@ -1,11 +1,12 @@
 // TODO: create all the global variables that wil be used in the code.
 let cityBtn = document.querySelector("#search-form");
 let todayWeather = document.querySelector("#today");
-
+let currentCity = "";
+let cityArray = [];
 // TODO: create a function that will capture the value of the form
 cityBtn.addEventListener("submit", function (event) {
   event.preventDefault();
-  let currentCity = document.querySelector("#search-input").value;
+  currentCity = document.querySelector("#search-input").value;
   currentCity = currentCity.charAt(0).toUpperCase() + currentCity.slice(1);
   let now = dayjs().format("DD/M/YYYY");
   todayWeather.innerHTML = `<h2 id="todayHeader" class="mt-1 h3">${currentCity} (${now}) </div>`;
@@ -22,8 +23,24 @@ cityBtn.addEventListener("submit", function (event) {
 
       console.log(lat, lon);
       runApi(lat, lon);
+    })
+    .catch((error) => {
+      // Handle any errors that occurred during the fetch or data processing
+      console.error("wrong city name:", error);
+      todayWeather.innerHTML = `<h2 id="todayHeader" class="mt-1 h3">Try again!</div>`;
+      cardContainer.innerHTML = "";
     });
 });
+//array of history
+//city buttons
+function addHistoryButton(currentCity) {
+  cityArray.unshift(currentCity);
+  let cityBtn = document.createElement("button");
+  cityBtn.classList.add(".cityBtn");
+  cityBtn.textContent = currentCity;
+
+  document.querySelector(".input-group-append").appendChild(cityBtn);
+}
 
 // when the user types in a city and hits search the application needs to run the api. and then display the weather information on the page.
 
